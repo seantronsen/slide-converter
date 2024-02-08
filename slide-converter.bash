@@ -71,8 +71,8 @@ OBJS="*.html $INTERMEDIATE"
 
 if [[ ! -f "$FILE_IN" ]]; then
 	error "file not found: $FILE_IN"
-elif [[ -f "$FILE_OUT" ]]; then
-	error "file exists, will not overwrite: $FILE_OUT"
+elif [[ -e "$DIR_BUILD" ]]; then
+	error "file/directory already exists: $FILE_OUT"
 fi
 
 mkdir "$DIR_BUILD" && cd "$DIR_BUILD"
@@ -82,7 +82,7 @@ pdftohtml -p $INTERMEDIATE "${FILE_OUT_UNIQUE}.html"
 pandoc -s "${FILE_OUT_UNIQUE}s.html" -o "${FILE_OUT}.md"
 mkdir -p attachments
 mv *.jpg attachments/
-rm "$OBJS"
+rm $OBJS
 
 ##################################################
 ##################################################
@@ -94,9 +94,6 @@ rm "$OBJS"
 # - convert pathnames
 ##################################################
 ##################################################
-BAKEXT='.bak' # sed backup extension
-sed -I $BAKEXT 's/^-\{3,\}$//' $FILE_OUT.md
-sed -I $BAKEXT 's/^\[\]{.*}//' $FILE_OUT.md
-sed -I $BAKEXT 's/\\$//' $FILE_OUT.md
-sed -I $BAKEXT 's/!\[\](/!\[\](attachments\//' $FILE_OUT.md
-rm *.bak
+tempvar="temp-$epoch"
+sed 's/^-\{3,\}$//' "$FILE_OUT.md" | sed 's/^\[\]{.*}//' | sed 's/\\$//' | sed 's/!\[\](/!\[\](attachments\//' >$tempvar
+mv -f $tempvar "$FILE_OUT.md" 
