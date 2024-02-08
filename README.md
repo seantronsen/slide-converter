@@ -22,6 +22,21 @@ converted note file in the form of a markdown document and another
 subdirectory titled 'attachments' which contains the original documents
 content in the form of JPEGs.
 
+## Assumptions
+
+I assume you intend to execute this program on either a Linux or MacOS machine.
+No support for Windows is provided at this time.
+
+## Dependencies
+
+The dependencies listed below must be installed and available on the `$PATH`
+beforehand.
+
+- [ImageMagick CLI](https://imagemagick.org/)
+- Poppler Tools / Plugin: Should come by default with a full installation of
+  [TexLive](https://www.tug.org/texlive/) (MacTex on MacOS).
+- [pandoc](https://pandoc.org/)
+
 ## Visualizing Results
 Once you've converted your PDF file into a note document, the results can be
 visualized using a myriad of tools. Some examples are given in a non-exhaustive
