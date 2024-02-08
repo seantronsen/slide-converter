@@ -30,6 +30,8 @@
 set -e
 source "$(dirname $(realpath ${BASH_SOURCE[0]}))/lib.bash"
 
+binary_dependency_check convert pdftohtml pdftoppm pandoc
+
 if (($# != 2)); then
 	echo "$(basename $0) <path-to-pdf> <out-basename>"
 	error "improper number of arguments specified"

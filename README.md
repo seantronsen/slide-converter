@@ -21,3 +21,15 @@ addition to a myriad of shell output. Contained within that directory is the
 converted note file in the form of a markdown document and another
 subdirectory titled 'attachments' which contains the original documents
 content in the form of JPEGs.
+
+## Issues
+
+```bash
+
+convert-im6.q16: attempt to perform an operation not allowed by the security policy `PDF' @ error/constitute.c/IsCoderAuthorized/421.
+
+```
+This results from a security configuration recommendation that is applied on
+various Linux systems. I've yet to see the error pop up on a MacOS machine
+(script runs without issues). See this [forum
+post](https://bugs.archlinux.org/task/60580) for the solution.
