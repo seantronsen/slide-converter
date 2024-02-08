@@ -22,6 +22,17 @@ converted note file in the form of a markdown document and another
 subdirectory titled 'attachments' which contains the original documents
 content in the form of JPEGs.
 
+## Visualizing Results
+Once you've converted your PDF file into a note document, the results can be
+visualized using a myriad of tools. Some examples are given in a non-exhaustive
+list below.
+
+- [vscode](https://code.visualstudio.com/docs/languages/markdown)
+- [grip](https://github.com/joeyespo/grip)
+- [obsidian](https://obsidian.md/)
+
+
+
 ## Issues
 
 ```bash
