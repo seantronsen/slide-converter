@@ -15,7 +15,7 @@
 #
 # Functional Interface
 # - $1: 		name/path to the source PDF file
-# - $2 			name of the target note (no extension)
+# - $2: 		name of the target note (no extension)
 #
 # Successful execution of the script will result in the creation of a
 # subdirectory named similarly to the specified output base filename in
@@ -67,7 +67,7 @@ DIR_BUILD="converted-$FILE_OUT"
 EPOCH="$(date "+%s")"
 FILE_OUT_UNIQUE="$FILE_OUT-$EPOCH"
 INTERMEDIATE="intermediate-$EPOCH.pdf"
-OBJS="*.html $INTERMEDIATE"
+OBJS="*.html $INTERMEDIATE *.jpg"
 
 if [[ ! -f "$FILE_IN" ]]; then
 	error "file not found: $FILE_IN"
@@ -79,9 +79,9 @@ mkdir "$DIR_BUILD" && cd "$DIR_BUILD"
 pdftoppm -jpeg "../${FILE_IN}" "$FILE_OUT"
 convert $FILE_OUT*.jpg $INTERMEDIATE
 pdftohtml -p $INTERMEDIATE "${FILE_OUT_UNIQUE}.html"
-pandoc -s "${FILE_OUT_UNIQUE}s.html" -o "${FILE_OUT}.md"
+pandoc -s "${FILE_OUT_UNIQUE}s.html" -o "${FILE_OUT_UNIQUE}.md"
 mkdir -p attachments
-mv *.jpg attachments/
+mv $FILE_OUT_UNIQUE*.jpg attachments/
 rm $OBJS
 
 ##################################################
@@ -94,6 +94,6 @@ rm $OBJS
 # - convert pathnames
 ##################################################
 ##################################################
-tempvar="temp-$epoch"
-sed 's/^-\{3,\}$//' "$FILE_OUT.md" | sed 's/^\[\]{.*}//' | sed 's/\\$//' | sed 's/!\[\](/!\[\](attachments\//' >$tempvar
-mv -f $tempvar "$FILE_OUT.md" 
+tempvar="temp-$EPOCH"
+sed 's/^-\{3,\}$//' "$FILE_OUT_UNIQUE.md" | sed 's/^\[\]{.*}//' | sed 's/\\$//' | sed 's/!\[\](/!\[\](attachments\//' >$tempvar
+mv -f $tempvar "$FILE_OUT_UNIQUE.md"
